@@ -129,4 +129,4 @@ EMAIL_HOST="smtp.gmail.com"
 EMAIL_PORT=465
 EMAIL_USE_SSL=True
 EMAIL_HOST_USER="bgezreaders@gmail.com"
-EMAIL_HOST_PASSWORD="wmkx lpca mndh puel"
+EMAIL_HOST_PASSWORD=
