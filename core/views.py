@@ -11,7 +11,7 @@ from .models import *
 
 @login_required
 def Home(request):
-    return render(request, 'index.html')
+    return render(request, 'user.html')
 
 def about(request):
     if request.method == 'POST':
