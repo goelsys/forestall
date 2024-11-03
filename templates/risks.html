@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %} - Risk Log {% endblock title %}
+{% block content %}
+<div class="mt-4 row justify-content-center">
+    <h2>Risk Log - {{ project }}</h2>
+</div>
+<a href="{% url 'user' %}" class="btn btn-secondary mx-3">Back to Dashboard.</a>
+<div class="row justify-content-center">
+    <div class="col m-3">
+        <form action="" method="get">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5>Filters</h5>
+                    <button class="btn btn-success" type="submit">Filter</button>
+                </div>
+                <div class="card-body">
+                    Title: {{ risk_filter.form.name }}
+                    Caetgory: {{ risk_filter.form.category }}
+                    Owner: {{ risk_filter.form.owner }}
+                    Status: {{ risk_filter.form.status }}
+                    Escalated: {{ risk_filter.form.escalated }}
+                    Start Date: {{ risk_filter.form.start_date }}
+                    End Date: {{ risk_filter.form.end_date }}
+                    <br>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-success" type="submit">Filter</button>
+                    <a href="{% url 'log' project.id %}" class="btn btn-secondary">Clear Filters</a>
+                </div>
+            </div>
+        </form>
+        <br>
+        <div class="card">
+            <div class="card-header">
+                <a href="{% url 'add_risk' project.id %}" class="btn btn-primary">Add A Risk</a>
+                {% if risk_count > 0 %}
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Status</th>
+                        <th>Category</th>
+                        <th>Approach</th>
+                        <th>Owner</th>
+                        <th>Impact</th>
+                        <th>Escalation</th>
+                        <th>Last Updated</th>
+                    </tr>
+                    {% for risk in risks %}
+                    <tr>
+                        <td>
+                            {{ risk.id }}
+                        </td>
+                        <td>
+                            <a href="{% url 'risk' project.id risk.id %}">{{ risk.name }}</a>
+                        </td>
+                        <td>{{ risk.status }}</td>
+                        <td>{{ risk.category }}</td>
+                        <td>{{ risk.approach }}</td>
+                        <td>{{ risk.owner }}</td>
+                        <td>{{ risk.impact }}</td>
+                        <td>{{ risk.escalated }}</td>
+                        <td>{{ risk.date_last_updated }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% endif%}
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'add_risk' project.id %}" class="btn btn-primary">Add A Risk</a>
+            </div>
+        </div>
+    </div>
+</div>
+<a href="{% url 'user' %}" class="mx-3 mb-3 btn btn-secondary">Back to Dashboard.</a>
+{% endblock content%}

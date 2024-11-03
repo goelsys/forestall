@@ -1,0 +1,159 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Risk Report</title>
+        <style>
+            table {
+                width: 100%
+            }
+
+            table,
+            td {
+                border: 0px solid black;
+                border-spacing: 0;
+                border-collapse: collapse;
+            }
+        </style>
+    </head>
+
+    <body>
+        <center>
+            <h2>Risk - {{ risk }} - {{ risk.project}}</h2>
+            <h5>{{ user.first_name }} {{ user.last_name }}</h5>
+        </center>
+        <br><br>
+        <div class="mx-4">
+            <tr valign="top">
+                <table cellspacing="0" cellpadding=10 width="100%">
+                    <td>
+                        Date Identified : {{ risk.date_identified }} <br>
+                        {% if risk.status == "Closed" %}
+                        Date closed : {{ risk.date_closed }}
+                        {% else %}
+                        Date Last Updated : {{ risk.date_last_updated }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        Date Printed : <b>{% now "Y M d" %}</b>
+                    </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <hr>
+                </td>
+            </tr>
+            <tr valign="top">
+                <th align="left">
+                    Risk ID : {{ risk.id }}
+                </th>
+                <th>
+                    <h5>
+                        {% if risk.escalated %}
+                        [ Escalated ]
+                        {% endif %}
+                    </h5>
+                </th>
+            </tr>
+            <tr valign="top">
+                <td>
+                    Title : <b>{{ risk }}</b>
+                </td>
+                <td>
+                    Status : <b>{{ risk.status }} </b>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <blockquote>{{ risk.description }}</blockquote>
+                </td>
+            </tr>
+            <tr valign="top">
+                <td>
+                    Category : <b>{{ risk.category }}</b> <br>
+                    Impact : $ <b>{{ risk.impact }}</b> <br>
+                    Likelihood : <b>{{ risk.likelihood }} %</b> <br>
+                </td>
+                <td>
+                    Approach : <b>{{ risk.approach }}</b> <br>
+                    Owner : <b>{{ risk.owner }}</b>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <hr>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <h4>First Indicator of Occurence: </h4>
+                    {{ risk.first_indicator }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <hr>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <h4>Mitigation Plan : </h4>
+                    {{ risk.mitigation_plan }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <hr>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <h4>Contingency Plan : </h4>
+                    {{ risk.contingency_plan }}
+                </td>
+            </tr>
+            {% if risk.date_reopened is not None %}
+            <tr>
+                <td colspan="2">
+                    <hr>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <h4>Reopned :
+                        {% if risk.date_reopened == None %}
+                        <span class="text-danger">Date Not Specified</span>
+                        {% else %}
+                        <b>{{ risk.date_reopened }}</b>
+                        {% endif %}
+                    </h4>
+                    <h5>Reason & Action : </h5>
+                    {{ risk.reason_and_action}}
+                </td>
+            </tr>
+            {% endif %}
+            <tr>
+                <td colspan="2">
+                    <hr>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <h4>Final Closure Report: </h4>
+                    {{ risk.final_report }}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <hr>
+                </td>
+            </tr>
+            </table>
+        </div>
+
+    </body>
+
+</html>

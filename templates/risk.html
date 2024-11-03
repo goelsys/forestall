@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+- Risk
+{% endblock title%}
+
+{% block content %}
+<div class="mt-4 mx-auto row justify-content-center">
+    <h2>Risk - {{ risk }} - {{ risk.project}}</h2>
+</div>
+<center>
+    <h4>{{ user.first_name }} {{ user.last_name }}</h4>
+</center>
+<div class="mx-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <a href="{% url 'log' project_id %}" class="btn btn-primary">Back to Risklog</a>
+        <a href="{% url 'edit_risk' risk.id %}" class="btn btn-success">Edit Risk</a>
+    </div> <br>
+
+    <table class="table table-striped">
+        <tr>
+            <td>
+                Date Identified : {{ risk.date_identified }} <br>
+                {% if risk.status == "Closed" %}
+                Date closed : {{ risk.date_closed }}
+                {% else %}
+                Date Last Updated : <span class="text-danger">{{ risk.date_last_updated }}</span>
+                {% endif %}
+            </td>
+            <td>
+                As of : <b>{% now "M d, Y" %}</b>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Risk ID : {{ risk.id }} <br>
+            </th>
+            <th>
+                <h5>
+                    {% if risk.escalated %}
+                    <span class="text-danger">&nbsp; [ Escalated ]</span>
+                    {% endif %}
+                </h5>
+            </th>
+        </tr>
+        <tr>
+            <td>
+                Title : <b>{{ risk }}</b>
+            </td>
+            <td>
+                Status : <b>{{ risk.status }} </b>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <i>{{ risk.description }}</i>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Category : <b>{{ risk.category }}</b> <br>
+                Impact : $ <b>{{ risk.impact }}</b> <br>
+                Likelihood : <b>{{ risk.likelihood }} %</b> <br>
+            </td>
+            <td>
+                Approach : <b>{{ risk.approach }}</b> <br>
+                Owner : <b>{{ risk.owner }}</b>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <h5>First Indicator of Occurence:</h5>
+                {{ risk.first_indicator }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <h5>Mitigation Plan :</h5>
+                {{ risk.mitigation_plan }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <h5>Contingency Plan :</h5>
+                {{ risk.contingency_plan }}
+            </td>
+        </tr>
+        {% if risk.date_reopened is not None %}
+        <tr>
+            <td colspan="2">
+                <h5>Reopned :
+                    {% if risk.date_reopened == None %}
+                    <span class="text-danger">Date Not Specified</span>
+                    {% else %}
+                    {{ risk.date_reopened }}
+                    {% endif %}
+                </h5>
+                <br>
+                <b>Reason & Action : </b>
+                {{ risk.reason_and_action}}
+            </td>
+        </tr>
+        {% endif %}
+        <tr>
+            <td colspan="2">
+                <h5>Final Closure Report: </h5>
+                {{ risk.final_report }}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <a href="{% url 'export_pdf' project_id risk.id %}" class="btn btn-secondary">Export to PDF</a>
+            </td>
+        </tr>
+    </table>
+    <a href="{% url 'log' project_id %}" class="btn btn-primary">Back to Risklog</a>
+</div>
+{% endblock content %}

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+- Dashboard
+{% endblock title%}
+
+{% block content %}
+
+<div class="my-5 row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card">
+            <div class="card-header">
+                <h2>{{ user.first_name }} {{ user.last_name}} - {{ user }}</h2>
+                Company:
+                {% if company == None %}
+                <a href="{% url 'create_company' %}"><i>Create Company</i></a>
+                {% else %}
+                <a href="{% url 'edit_company' company.id %}">{{ company }}</a>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <h5>Projects Dashboard</h5>
+                <form action="">
+                    Filter Projects
+                    Name : {{ project_filter.form.name }}
+                    Status : {{ project_filter.form.status }}
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                    <a href="{% url 'user' %}" class="btn btn-secondary">Clear Filter</a> <br> <br>
+                </form>
+                <div class="ml-3">
+                    <table class="table table-striped">
+                        {% for project in projects %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'edit_project' project.id %}">{{ project }}</a> ({{ project.status}}) :
+                                <a href="{% url 'log' project.id %}">Risk Log</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'create_project' %}" class="btn btn-primary"><i>New Project</i></a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

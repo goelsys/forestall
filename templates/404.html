@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+- Page not found
+{% endblock title%}
+
+{% block content %}
+
+<div class="my-5 row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h2>Page Not Found</h2>
+            </div>
+            <div class="card-body">
+                The page you are looking for does not exist. <br>
+                <a href="/4s/">Go back to the homepage</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

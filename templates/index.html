@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+- Some page
+{% endblock title%}
+
+{% block content %}
+<div class="m-3 d-flex flex-column">
+    <div class="m-2 row-sm-4">
+        <h1>Welcome {{ user }},</h1>
+
+        Click here to see your <a href="{% url 'user' %}">project status</a>.
+
+    </div>
+</div>
+{% endblock content %}
