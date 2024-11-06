@@ -14,8 +14,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = False
+# DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*', '.vercel.app','.now.sh']
 
@@ -132,14 +132,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_HOST="smtp.gmail.com"
 EMAIL_PORT=465
 EMAIL_USE_SSL=True
-<<<<<<< HEAD
-
 EMAIL_HOST_USER =  config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 
-
-=======
-EMAIL_HOST_USER="bgezreaders@gmail.com"
-EMAIL_HOST_PASSWORD=
->>>>>>> origin/main
