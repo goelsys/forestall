@@ -8,7 +8,7 @@ from .filters import RiskFilter, ProjectFilter
 
 # for export_to_pdf
 from django.template.loader import render_to_string
-from weasyprint import HTML
+# from weasyprint import HTML
 
 
 # Create your views here.
@@ -151,21 +151,23 @@ class EditRiskView(UpdateView):
         return reverse('log', args=[self.object.project.id])
 
 def export_pdf(request, project_id, risk_id):
-    risk = get_object_or_404(Risk, pk=risk_id)
-    context = {
-        'risk': risk,
-        'project_id': project_id,
-    }
-    html_string = render_to_string('risk_pdf.html', context)
+    pass
 
-    # Convert HTML to PDF
-    pdf = HTML(string=html_string).write_pdf()
+    # risk = get_object_or_404(Risk, pk=risk_id)
+    # context = {
+    #     'risk': risk,
+    #     'project_id': project_id,
+    # }
+    # html_string = render_to_string('risk_pdf.html', context)
 
-    # Create a response with the PDF content
-    response = HttpResponse(pdf, content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="risk_report.pdf"'
+    # # Convert HTML to PDF
+    # pdf = HTML(string=html_string).write_pdf()
 
-    return response
+    # # Create a response with the PDF content
+    # response = HttpResponse(pdf, content_type='application/pdf')
+    # response['Content-Disposition'] = 'attachment; filename="risk_report.pdf"'
+
+    # return response
 
 
 def handle_404(request, exception):

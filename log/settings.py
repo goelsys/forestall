@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'core',
     'risk',
     'django_filters',
-    'weasyprint',
+    # 'weasyprint',
 ]
 
 MIDDLEWARE = [
