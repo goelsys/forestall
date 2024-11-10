@@ -1,7 +1,7 @@
 from pathlib import Path
 import os
 from crispy_forms import __version__ as CRISPY_VERSION
-from decouple import config
+# from decouple import config
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -11,7 +11,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+# SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = 'django-insecure-jd2xs$&xy%w)_uhj!^p7wv@12)otg#hazfxd*9+vabdu&2j&-k'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
@@ -132,5 +134,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_HOST="smtp.gmail.com"
 EMAIL_PORT=465
 EMAIL_USE_SSL=True
-EMAIL_HOST_USER =  config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+# EMAIL_HOST_USER =  config('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = 'bgezreaders@gmail.com'
+EMAIL_HOST_PASSWORD = 'wmkx lpca mndh puel'
