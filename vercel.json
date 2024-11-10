@@ -6,13 +6,6 @@
       "use": "@vercel/python",
       "config": { "maxLambdaSize": "15mb",
                   "runtime": "Python3.8" }
-    },
-    {
-      "src": "build_files.sh",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "ui/staticfiles"
-      }
     }
   ],
   "routes": [
@@ -24,6 +17,5 @@
       "src": "/(.*)",
       "dest": "log/wsgi.py"
     }
-  ],
-  "outputDirectory": "ui/staticfiles"
+  ]
 }
