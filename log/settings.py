@@ -2,7 +2,7 @@ from pathlib import Path
 import os
 from os import getenv
 from crispy_forms import __version__ as CRISPY_VERSION
-from decouple import config
+# from decouple import config
 from dotenv import load_dotenv
 
 load_dotenv()
