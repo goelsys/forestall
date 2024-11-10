@@ -5,7 +5,7 @@
       "src": "log/wsgi.py",
       "use": "@vercel/python",
       "config": { "maxLambdaSize": "15mb",
-                  "runtime": "Python3.13" }
+                  "runtime": "Python3.8" }
     },
     {
       "src": "build_files.sh",
