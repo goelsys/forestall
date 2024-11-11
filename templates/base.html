@@ -43,7 +43,7 @@
                         <ul class="navbar-nav">
                             <li class="nav-item pl-2">
                                 <a class="nav-link text-light h6" {% if user.is_authenticated %} href="{% url 'user' %}"
-                                    {% else %} href="{% url 'login' %}" {% endif %}>Home</a>
+                                    {% else %} href="{% url 'loginview' %}" {% endif %}>Home</a>
                             </li>
                             <!-- <li class="nav-item pl-2">
                                 <a class="nav-link text-light h6" href="{ % url 'privacy_policy' %}">Privacy Policy</a>
@@ -72,7 +72,7 @@
                 </div>
                 {% else %}
                 <div class="mr-3 px-3 border shadow-sm bg-white rounded-lg">
-                    <a class="h6" href="{% url 'login' %}">
+                    <a class="h6" href="{% url 'loginview' %}">
                         Login
                     </a>
                 </div>

@@ -70,7 +70,7 @@ def RegisterView(request):
                 password = password
             )
             messages.success(request, 'Account created. Login now')
-            return redirect('login')
+            return redirect('loginview')
         else:
             return redirect('register')
 
@@ -100,7 +100,7 @@ def LogoutView(request):
     logout(request)
 
     # redirect to login page after logout
-    return redirect('login')
+    return redirect('loginview')
 
 
 def ForgotPassword(request):
@@ -186,7 +186,7 @@ def ResetPassword(request, reset_id):
 
                 # redirect to login
                 messages.success(request, 'Password reset. Proceed to login')
-                return redirect('login')
+                return redirect('loginview')
 
             else:
                 # redirect back to password reset page and display errors
