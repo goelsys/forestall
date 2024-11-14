@@ -67,8 +67,8 @@
                         <td>{{ risk.escalated }}</td>
                         <td>{{ risk.date_last_updated }}</td>
                         <td>
-                            <a href="{% url 'delete_risk' project.id risk.id %}"><img
-                                    src="{% static 'img/trashcan.png' %}" alt="Delete Risk" class="delete-icon"></a>
+                            <a href="{% url 'delete_risk' project.id risk.id %}"
+                                class="btn btn-outline-danger">Delete</a>
                         </td>
                     </tr>
                     {% endfor %}
