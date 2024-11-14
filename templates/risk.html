@@ -111,10 +111,12 @@
         </tr>
         <tr>
             <td colspan="2">
-                <a href="{% url 'export_pdf' project_id risk.id %}" class="btn btn-secondary">Export to PDF</a>
-                &lt; Functionality not working currently. <br>
-                <a href="{% url 'delete_risk' project_id risk.id %}" class="btn btn-danger">Delete This Risk</a> &lt;
-                This is irreversible.
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <a href="{% url 'export_pdf' project_id risk.id %}" class="btn btn-secondary">Export to PDF</a>
+                    &lt;&lt; Export to PDF functionality not working currently. <br>
+                    <a href="{% url 'delete_risk' project_id risk.id %}" class="btn btn-danger">Delete This Risk</a>
+                </div>
             </td>
         </tr>
     </table>
