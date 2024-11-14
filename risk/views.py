@@ -1,6 +1,9 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.core.exceptions import PermissionDenied
 from django.views.generic import FormView, UpdateView
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.http import HttpResponse
 from .models import Company, UserCompany, Prj, Risk
 from .forms import CompanyForm, ProjectForm, RiskForm, UserForm
@@ -9,7 +12,6 @@ from .filters import RiskFilter, ProjectFilter
 # for export_to_pdf
 from django.template.loader import render_to_string
 # from weasyprint import HTML
-
 
 # Create your views here.
 def UserView(request):
@@ -35,6 +37,8 @@ def UserView(request):
     }
     return render(request, "user.html", context)
 
+
+@login_required
 def profile(request):
     if request.method == 'POST':
         form = UserForm(request.POST, instance=request.user)
@@ -46,25 +50,41 @@ def profile(request):
     return render(request, 'profile.html', {'form': form})
 
 
-class CreateCompanyView(FormView):
-    template_name = 'company_form.html'  # Replace with your template name
+class CreateCompanyView(LoginRequiredMixin, FormView):
+    template_name = 'company_form.html'
     form_class = CompanyForm
     success_url = '/4s/'  # Redirect to company list after success
 
     def form_valid(self, form):
+        company = form.save(commit=False)
+        # check for existing company for the user
+        if UserCompany.objects.filter(user=self.request.user).exists():
+            existing_company = UserCompany.objects.filter(user=self.request.user).first()
+            existing_pk = existing_company.company.pk
+            return redirect(reverse('edit_company', kwargs={'pk': existing_pk}))
+
         # Save the company form after successful validation
         company = form.save()
         UserCompany.objects.create(user=self.request.user, company=company)
         return super().form_valid(form)
 
 
-class EditCompanyView(UpdateView):
+class EditCompanyView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Company
     form_class = CompanyForm
     template_name = 'company_form.html'  # Use the same template for creating and editing
     success_url = '/4s/'
 
+    def test_func(self):
+        company = self.get_object()
+        return self.request.user.usercompany_set.filter(company=company).exists()
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(usercompany__user=self.request.user)
+
+
+@login_required
 def create_project(request):
     user = request.user
     
@@ -85,13 +105,23 @@ def create_project(request):
 
     return render(request, 'project_form.html', {'form': form})
 
-class EditProjectView(UpdateView):
+
+class EditProjectView(LoginRequiredMixin, UpdateView):
     model = Prj
     form_class = ProjectForm
     template_name = 'project_form.html'  # Use the same template for creating and editing
     success_url = '/4s/'
 
+    def test_func(self):
+        project = self.get_object()
+        return project.user == self.request.user
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(user=self.request.user)
+
+
+@login_required
 def Risklog(request, project_id):
     user = request.user
     try:
@@ -114,8 +144,13 @@ def Risklog(request, project_id):
     }
     return render(request, "risks.html", context)
 
+
+@login_required
 def add_risk(request, project_id):
+    user = request.user
     project = Prj.objects.get(pk=project_id)
+    if project.user != user:
+        raise PermissionDenied("You don't have permission to access this project.")
 
     if request.method == 'POST':
         form = RiskForm(request.POST)
@@ -128,18 +163,33 @@ def add_risk(request, project_id):
         form = RiskForm(initial={'project': project})
     return render(request, 'risk_form.html', {'form': form, 'project': project})
 
+
+@login_required
 def RiskView(request, project_id, risk_id):
     risk = get_object_or_404(Risk, pk=risk_id)
+
+    if risk.project.user != request.user:
+        raise PermissionDenied("You don't have permission to access this risk.")
+
     context = {
         'risk': risk,
         'project_id': project_id,
     }
     return render(request, 'risk.html', context)
 
-class EditRiskView(UpdateView):
+
+class EditRiskView(LoginRequiredMixin, UpdateView):
     model = Risk
     form_class = RiskForm
     template_name = 'risk_form.html' 
+
+    def test_func(self):
+        risk = self.get_object()
+        return risk.project.user == self.request.user
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(project__user=self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -172,3 +222,7 @@ def export_pdf(request, project_id, risk_id):
 
 def handle_404(request, exception):
     return render(request, '404.html', status=404)
+
+
+    # user = get_object_or_404(User, id=user_id)
+    # if user != request.user:

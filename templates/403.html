@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+- Page not found
+{% endblock title%}
+
+{% block content %}
+
+<div class="my-5 row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h2>403 Forbidden</h2>
+            </div>
+            <div class="card-body">
+                403 Forbidden. <br>
+                <p>You do not have permission to access this resource.</p>
+                <a href="/4s/">Go back to the homepage</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
