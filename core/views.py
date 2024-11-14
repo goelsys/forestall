@@ -38,6 +38,32 @@ def about(request):
 
     return render(request, 'about.html')
 
+
+def contact(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+
+        # Send an email
+        subject = 'Contact Form Submission'
+        message = f'Name: {name}\nEmail: {email}\nMessage: {message}'
+        # send_mail(subject, message, settings.EMAIL_HOST_USER,[email])
+
+        email_message = EmailMessage(
+                subject, message,
+                settings.EMAIL_HOST_USER,
+                [settings.EMAIL_HOST_USER]
+            )
+
+        email_message.fail_silently = True
+        email_message.send()
+
+        # Redirect to a thank you page or display a success message
+        return render(request, 'thanks.html')
+
+    return render(request, 'contact.html')
+
 def RegisterView(request):
 
     if request.method == "POST":

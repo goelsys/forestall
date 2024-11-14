@@ -200,6 +200,19 @@ class EditRiskView(LoginRequiredMixin, UpdateView):
         # Redirect to the project detail page after successful edit
         return reverse('log', args=[self.object.project.id])
 
+
+@login_required
+def delete_risk(request, project_id, risk_id):
+    risk = get_object_or_404(Risk, pk=risk_id)
+
+    # Check if the user is associated with the project
+    if risk.project.user != request.user:
+        raise PermissionDenied("You don't have permission to delete this risk.")
+
+    risk.delete()
+    return redirect('log', project_id)
+
+
 def export_pdf(request, project_id, risk_id):
     pass
 

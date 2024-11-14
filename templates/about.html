@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-- About us
+- About Forestall
 {% endblock title%}
 
 {% block content %}
@@ -11,30 +11,13 @@
     <div class="col-md-6">
         <div class="card">
             <div class="card-header">
-                <h2>About Us</h2>
+                <h2>About Forestall</h2>
             </div>
             <div class="card-body">
-                <b>Need help?</b> Reach out to us using the form below. We're here to assist you with any product
-                issues, technical questions, or suggestions. <br>
+                <h5>Forestall 0.1</h5>
+                Forestall is in a beta release of the Risk Management tool developed by the creators of Presage (book)
+                for friends and family. <br>
 
-                <form action="" method="post" class="row g-3">
-                    {% csrf_token %}
-                    <div class="col-md-6">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" name="name" class="form-control" id="name" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" name="email" class="form-control" id="email" required>
-                    </div>
-                    <div class="col-12">
-                        <label for="message" class="form-label">Message</label>
-                        <textarea name="message" class="form-control" id="message" rows="4" required></textarea>
-                    </div>
-                    <div class="mt-2 col-12">
-                        <button type="submit" class="btn btn-primary">Send Message</button>
-                    </div>
-                </form>
             </div>
         </div>
     </div>

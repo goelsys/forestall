@@ -112,6 +112,9 @@
         <tr>
             <td colspan="2">
                 <a href="{% url 'export_pdf' project_id risk.id %}" class="btn btn-secondary">Export to PDF</a>
+                &lt; Functionality not working currently. <br>
+                <a href="{% url 'delete_risk' project_id risk.id %}" class="btn btn-danger">Delete This Risk</a> &lt;
+                This is irreversible.
             </td>
         </tr>
     </table>

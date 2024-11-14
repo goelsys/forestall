@@ -49,6 +49,7 @@
                         <th>Impact</th>
                         <th>Escalation</th>
                         <th>Last Updated</th>
+                        <th>Unwise</th>
                     </tr>
                     {% for risk in risks %}
                     <tr>
@@ -65,6 +66,10 @@
                         <td>{{ risk.impact }}</td>
                         <td>{{ risk.escalated }}</td>
                         <td>{{ risk.date_last_updated }}</td>
+                        <td>
+                            <a href="{% url 'delete_risk' project.id risk.id %}"><img
+                                    src="{% static 'img/trashcan.png' %}" alt="Delete Risk" class="delete-icon"></a>
+                        </td>
                     </tr>
                     {% endfor %}
                 </table>

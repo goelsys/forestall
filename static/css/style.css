@@ -131,3 +131,9 @@ input[type="submit"]:hover {
 .signup_link a:hover {
     text-decoration: underline;
 }
+
+.delete-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}

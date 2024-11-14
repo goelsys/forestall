@@ -12,6 +12,7 @@ urlpatterns = [
     path('projects/<int:project_id>/add_risk/', views.add_risk, name='add_risk'),
     path('risks/<int:pk>/edit/', views.EditRiskView.as_view(), name='edit_risk'),
     path('risks/<int:project_id>/<int:risk_id>/', views.RiskView, name='risk'),
+    path('risks/<int:project_id>/<int:risk_id>/delete/', views.delete_risk, name='delete_risk'),
     path('risks/<int:project_id>/<int:risk_id>/print', views.export_pdf, name='export_pdf'),
     
 ]
