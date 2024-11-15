@@ -212,6 +212,9 @@ def delete_risk(request, project_id, risk_id):
     risk.delete()
     return redirect('log', project_id)
 
+def donate(request):
+    return render(request, "donate.html", {})
+
 
 def export_pdf(request, project_id, risk_id):
     pass

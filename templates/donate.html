@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Payment for the tool usage
+{% endblock title%}
+
+{% block content %}
+
+<div class="my-5 row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h2>Donationware Payment</h2>
+            </div>
+            <div class="card-body">
+                <center>
+                    <script async src="https://js.stripe.com/v3/buy-button.js">
+                    </script>
+
+                    <stripe-buy-button buy-button-id="buy_btn_1Q3fKBCeCnWWaYcvgckc2nEx"
+                        publishable-key="pk_live_51Nw3KWCeCnWWaYcvp9OiO20SEAxugqvzT1Du7b3Sr8Pf9AaY4ouPHkYACSaTSzY1O3a7cSbJMSuw22QW4jokEDZH00yoU9YQxT">
+                    </stripe-buy-button>
+                </center>
+                We need patrons to support this effort to make this product better. We hope to keep it Free for all
+                users. Your support is highly appreciated.
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
